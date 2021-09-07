@@ -1,6 +1,7 @@
 package menufact.facture;
 
 import menufact.Client;
+import menufact.exceptions.FactureEtatException;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.PlatChoisi;
 
@@ -73,28 +74,26 @@ public class Facture {
     /**
      * Permet de changer l'état de la facture à PAYEE
      */
-    public void payer()
-    {
-       etat = FactureEtat.PAYEE;
+    public void payer() throws FactureEtatException {
+       etat = etat.prochaineFactureEtat();
     }
     /**
      * Permet de changer l'état de la facture à FERMEE
      */
-    public void fermer()
-    {
-       etat = FactureEtat.FERMEE;
+    public void fermer() throws FactureEtatException {
+
+       etat = etat.prochaineFactureEtat();
     }
 
     /**
      * Permet de changer l'état de la facture à OUVERTE
      * @throws FactureException en cas que la facture soit PAYEE
      */
-    public void ouvrir() throws FactureException
-    {
-        if (etat == FactureEtat.PAYEE)
+    public void ouvrir() throws FactureException, FactureEtatException {
+        if (etat == etat.prochaineFactureEtat())
             throw new FactureException("La facture ne peut pas être reouverte.");
         else
-            etat = FactureEtat.OUVERTE;
+            etat = etat.precedenteFactureEtat();
     }
 
     /**
@@ -112,7 +111,7 @@ public class Facture {
      */
     public Facture(String description) {
         date = new Date();
-        etat = FactureEtat.OUVERTE;
+        etat = new Ouvert();
         courant = -1;
         this.description = description;
     }
@@ -124,7 +123,7 @@ public class Facture {
      */
     public void ajoutePlat(PlatChoisi p) throws FactureException
     {
-        if (etat == FactureEtat.OUVERTE)
+        if (etat == p.getEtat())
             platchoisi.add(p);
         else
             throw new FactureException("On peut ajouter un plat seulement sur une facture OUVERTE.");

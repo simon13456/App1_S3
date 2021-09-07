@@ -1,15 +1,19 @@
 package menufact.facture;
 
-import java.util.ArrayList;
 
-public class Ouvert extends Facture {
-    /**
-     * @param description la description de la Facture
-     */
-    public Ouvert(String description) {
-        super(description);
+import menufact.exceptions.FactureEtatException;
+
+
+public class Ouvert implements FactureEtat {
+
+    @Override
+    public FactureEtat prochaineFactureEtat() throws FactureEtatException {
+        return new Fermer();
     }
 
-    public static void addPlat(int courant, ArrayList listActu){
+    @Override
+    public FactureEtat precedenteFactureEtat() throws FactureEtatException {
+        throw new FactureEtatException("Cette opération est impossible");
     }
+
 }

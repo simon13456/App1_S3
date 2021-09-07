@@ -1,5 +1,6 @@
 package menufact;
 
+import menufact.exceptions.FactureEtatException;
 import menufact.exceptions.MenuException;
 import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
@@ -75,7 +76,11 @@ public class TestMenuFact02 {
             System.out.println(me);
         }
 
-        t.test9_PayerFacture(f1);
+        try {
+            t.test9_PayerFacture(f1);
+        } catch (FactureEtatException e) {
+            e.printStackTrace();
+        }
 
         try {
             t.test8_AjouterPlatsFacture(f1, m1,1);
@@ -90,7 +95,7 @@ public class TestMenuFact02 {
 
         try {
             f1.ouvrir();
-        } catch (FactureException fe)
+        } catch (FactureException | FactureEtatException fe)
         {
             System.out.println(fe.getMessage());
         }
@@ -282,8 +287,7 @@ public class TestMenuFact02 {
         System.out.println(f1);
     }
 
-    private void test9_PayerFacture(Facture f1)
-    {
+    private void test9_PayerFacture(Facture f1) throws FactureEtatException {
         System.out.println("===test9_PayerFacture");
 
         System.out.println("Avant payer la facture");

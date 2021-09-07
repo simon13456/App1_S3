@@ -3,7 +3,7 @@ package ingredients;
 public class CreateurDingredient {
 
 
-    public void addIngredient(TypeIngredient typeingredient, String nom, String description, int qty, EtatM etat) {
+    public void addIngredient(TypeIngredient typeingredient, String nom, String description, float qty, EtatM etat) {
         IngredientInventaire inventaire = IngredientInventaire.getInstance();
         switch (typeingredient) {
             case FRUIT -> inventaire.addIngredient(CreateurFruit.creerFruit(nom, description, qty, etat));

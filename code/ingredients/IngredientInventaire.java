@@ -11,7 +11,7 @@ public class IngredientInventaire {
 
     private Hashtable<String, Ingredient> gardeManger;
 
-    public IngredientInventaire() {
+    private IngredientInventaire() {
         gardeManger = new Hashtable<String, Ingredient>();
     }
 
@@ -36,14 +36,15 @@ public class IngredientInventaire {
     }
 
     public void addIngredient(Ingredient ingredient) {
-        gardeManger.put(ingredient.getNom(),ingredient);
+        gardeManger.put(ingredient.getNom(), ingredient);
     }
 
     public Ingredient getIngredient(Ingredient ingredient) {
 
         return gardeManger.get(ingredient.getNom());
     }
-    public boolean verifierRecette(){
+
+    public boolean verifierRecette() {
 
         return true;
     }
