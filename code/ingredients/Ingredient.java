@@ -29,4 +29,14 @@ public abstract class Ingredient {
     public void setTypeIngredient(TypeIngredient typeIngredient) {
         this.typeIngredient = typeIngredient;
     }
+
+    public float getQty() { return qty; }
+
+    public void setQty(float qty) {
+        this.qty = qty;
+    }
+    public Ingredient setQtyAndReturn(float qty) {
+        this.qty=qty;
+        return this;
+    }
 }
