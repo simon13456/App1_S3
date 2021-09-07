@@ -1,4 +1,4 @@
 package ingredients;
 
-public class EtatM {
+public class EtatM extends Ingredient {
 }

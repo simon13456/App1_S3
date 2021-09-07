@@ -1,14 +1,22 @@
 package menufact;
 
+import ingredients.*;
 import menufact.exceptions.FactureEtatException;
 import menufact.exceptions.MenuException;
 import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.PlatAuMenu;
 import menufact.plats.PlatChoisi;
-import menufact.plats.PlatEtat.EtatException;
-import menufact.plats.PlatExeption;
 import menufact.plats.PlatSante;
+import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+
+
+import static ingredients.CreateurEpice.creerEpice;
+import static ingredients.CreateurFruit.creerFruit;
+import static ingredients.CreateurLaitier.creerLaitier;
+import static ingredients.CreateurLegume.creerLegume;
+import static ingredients.CreateurViande.creerViande;
 
 
 public class TestMenuFact02 {
@@ -64,6 +72,7 @@ public class TestMenuFact02 {
             System.out.println(me);
         }
 
+
         try {
             t.test9_PayerFacture(f1);
         } catch (FactureEtatException e) {
@@ -87,6 +96,68 @@ public class TestMenuFact02 {
         System.out.println("FIN DE TOUS LES TESTS...");
 
         System.out.println(f1.genererFacture());
+        testCreerFruit();
+        testCreerLegume();
+        testCreerViande();
+        testCreerLaitier();
+        testCreerEpice();
+    }
+
+
+    private static void testCreerFruit() {
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Pomme = factory.creerFruit("Pomme", "fruit rouge cultivé dans les verger", 28.0F, new Solide());
+        Assert.assertEquals("Pomme", Pomme.getNom());
+        //Assert.assertTrue(Pomme.getNom() == "Pomme");
+        System.out.println("Test : créer fruit  ");
+        System.out.println("Résulat attendue : True");
+        System.out.println("Résulat obtenue : ");
+        System.out.print("Pomme" == Pomme.getNom());
+    }
+
+
+    private static void testCreerLegume() {
+        CreateurDingredient factory = new CreateurLegume();
+        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+        Assert.assertEquals("Patate", Patate.getNom());
+        //Assert.assertTrue(Patate.getNom() == "Patate");
+        System.out.println("Test : créer légume  ");
+        System.out.println("Résulat attendue : True");
+        System.out.println("Résulat obtenue : ");
+        System.out.print("Patate" == Patate.getNom());
+    }
+
+    private static void testCreerViande() {
+        CreateurDingredient factory = new CreateurViande();
+        Ingredient Steak = creerViande("Steak", "Produit issu de la boucherie du boeuf", 15.0F, new Solide());
+        Assert.assertEquals("Steak", Steak.getNom());
+        //Assert.assertTrue(Steak.getNom() == "Steak");
+        System.out.println("Test : créer viande  ");
+        System.out.println("Résulat attendue : True");
+        System.out.println("Résulat obtenue : ");
+        System.out.print("Steak" == Steak.getNom());
+    }
+
+    private static void testCreerLaitier() {
+        CreateurDingredient factory = new CreateurLaitier();
+        Ingredient Creme = creerLaitier("Creme", "Produit de l'écrémage du lait constitué de lait très enrichi en matière grasse", 15.0F, new Liquide());
+        Assert.assertEquals("Creme", Creme.getNom());
+        //Assert.assertTrue(Steak.getNom() == "Steak");
+        System.out.println("Test : créer laitier  ");
+        System.out.println("Résulat attendue : True");
+        System.out.println("Résulat obtenue : ");
+        System.out.print("Creme" == Creme.getNom());
+    }
+
+    private static void testCreerEpice() {
+        CreateurDingredient factory = new CreateurEpice();
+        Ingredient Persil = creerEpice("Persil", "Petite ombellifère annuelle ou bisannuelle, à tige finement côtelée, à feuilles très découpées, que l'on utilise comme condiment et comme garniture.", 5.0F, new Solide());
+        Assert.assertEquals("Persil", Persil.getNom());
+        //Assert.assertTrue(Persil.getNom() == "Persil");
+        System.out.println("Test : créer persil  ");
+        System.out.println("Résulat attendue : True");
+        System.out.println("Résulat obtenue : ");
+        System.out.print("Persil" == Persil.getNom());
     }
 
     private void test1_AffichePlatsAuMenu(boolean trace, PlatAuMenu p1, PlatAuMenu p2,
@@ -255,3 +326,4 @@ public class TestMenuFact02 {
         System.out.println(f1);
     }
 }
+//#DOM Lorsqu'on fait des tests unitaires quels est la meilleure stratégie. Tout automatisé dans une grande classe ou tout séparé?
