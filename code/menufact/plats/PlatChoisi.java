@@ -39,4 +39,6 @@ public class PlatChoisi {
     public Recette getRecette(){
         return plat.getRecette();
     }
+
+    public double getProportion() { return 1; }
 }
