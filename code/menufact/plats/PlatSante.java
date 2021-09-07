@@ -7,15 +7,31 @@ public class PlatSante extends PlatAuMenu {
     private double chol;
     private double gras;
 
-    public PlatSante CreatePlatSante(int code, String description, double prix, double kcal, double chol, double gras) throws PlatExeption {
+    static public PlatSante CreatePlatSante(int code, String description, double prix, double kcal, double chol, double gras)  {
         if (prix<=0)
-            throw new PlatExeption("Le prix ne peux pas etre negatif(ou de zero)");
+            try {
+                throw new PlatExeption("Le prix ne peux pas etre negatif(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+            }
         if (kcal<=0)
-            throw  new PlatExeption("Les Kcal ne peuvent pas etre negatif(ou de zero)");
+            try {
+                throw  new PlatExeption("Les Kcal ne peuvent pas etre negatif(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+            }
         if (chol<=0)
-            throw new PlatExeption("Le Chol ne peut pas etre negatif(ou de zero)");
+            try {
+                throw new PlatExeption("Le Chol ne peut pas etre negatif(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+            }
         if (gras<=0)
-            throw  new PlatExeption("Le gras ne peut pas etre negatif(ou de zero)");
+            try {
+                throw  new PlatExeption("Le gras ne peut pas etre negatif(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+            }
 
         return new PlatSante(code,description,prix,kcal,chol,gras);
     }

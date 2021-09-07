@@ -35,4 +35,8 @@ public class PlatChoisi {
     public PlatAuMenu getPlat() {
         return plat;
     }
+
+    public Recette getRecette(){
+        return plat.getRecette();
+    }
 }

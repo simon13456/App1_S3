@@ -4,10 +4,16 @@ public class PlatAuMenu {
     private int code;
     private String description;
     private double prix;
+    private Recette recette;
 
-    public PlatAuMenu CreatePlatAuMenu(int code, String description, double prix) throws PlatExeption {
+    static public PlatAuMenu CreatePlatAuMenu(int code, String description, double prix) {
         if (prix<=0)
-            throw new PlatExeption("Le prix ne peut pas etre negatif(ou de zero)");
+            try {
+                throw new PlatExeption("Le prix ne peut pas etre negatif(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+                return null;
+            }
         return new PlatAuMenu(code,description,prix);
     }
     protected PlatAuMenu(int code, String description, double prix) {
@@ -30,9 +36,7 @@ public class PlatAuMenu {
                 "}\n";
     }
 
-    public int getCode() {
-        return code;
-    }
+    public int getCode() { return code; }
 
     public void setCode(int code) {
         this.code = code;
@@ -54,5 +58,9 @@ public class PlatAuMenu {
         if(prix<=0)
             throw new PlatExeption("Le prix ne peut pas etre negatif(ou de zero)");
         this.prix = prix;
+    }
+
+    public Recette getRecette() {
+        return recette;
     }
 }

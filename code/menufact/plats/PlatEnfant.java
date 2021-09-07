@@ -5,11 +5,19 @@ public class PlatEnfant extends PlatAuMenu{
 
     public PlatEnfant() {
     }
-    public PlatEnfant CreatePlatEnfant(int code, String description, double prix, double proportion) throws PlatExeption {
+    static public PlatEnfant CreatePlatEnfant(int code, String description, double prix, double proportion) {
         if(prix<=0)
-            throw new PlatExeption("Le prix ne peut etre negatif(ou de zero)");
+            try {
+                throw new PlatExeption("Le prix ne peut etre negatif(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+            }
         if (proportion<=0)
-            throw new PlatExeption("La proprotion ne peut etre negative(ou de zero)");
+            try {
+                throw new PlatExeption("La proprotion ne peut etre negative(ou de zero)");
+            } catch (PlatExeption e) {
+                e.printStackTrace();
+            }
         return new PlatEnfant(code,description,prix,proportion);
     }
     private PlatEnfant(int code, String description, double prix, double proportion) {
