@@ -37,26 +37,29 @@ public class IngredientInventaire {
     }
 
     public void addIngredient(Ingredient ingredient) {
-        gardeManger.put(ingredient.getNom(),ingredient);
+        gardeManger.put(ingredient.getNom(), ingredient);
     }
 
     public Ingredient getIngredient(Ingredient ingredient) {
 
         return gardeManger.get(ingredient.getNom());
     }
-    public boolean verifierRecette(Recette recette){
-        for(int i=0;i<recette.getIngredientRequis().length;i++)
-            if(!gardeManger.containsKey(recette.getIngredientRequis()[i].getNom()))
+
+    public boolean verifierRecette(Recette recette) {
+        for (int i = 0; i < recette.getIngredientRequis().length; i++)
+            if (!gardeManger.containsKey(recette.getIngredientRequis()[i].getNom()))
                 return false;
-        for(int i=0;i<recette.getIngredientRequis().length;i++)
-            if(gardeManger.get((recette.getIngredientRequis()[i].getNom())).getQty()<recette.getIngredientRequis()[i].getQty())
+        for (int i = 0; i < recette.getIngredientRequis().length; i++)
+            if (gardeManger.get((recette.getIngredientRequis()[i].getNom())).getQty() < recette.getIngredientRequis()[i].getQty())
                 return false;
+
         return true;
     }
-    public void consommerIngredient(Recette recette){
-        for(Ingredient ingredient:recette.getIngredientRequis())
-        {
-            gardeManger.replace(ingredient.getNom(), gardeManger.get(ingredient.getNom()).setQtyAndReturn(gardeManger.get(ingredient.getNom()).getQty() - ingredient.getQty()));;
+
+    public void consommerIngredient(Recette recette) {
+        for (Ingredient ingredient : recette.getIngredientRequis()) {
+            gardeManger.replace(ingredient.getNom(), gardeManger.get(ingredient.getNom()).setQtyAndReturn(gardeManger.get(ingredient.getNom()).getQty() - ingredient.getQty()));
+            ;
         }
     }
 }
