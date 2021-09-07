@@ -4,7 +4,7 @@ public abstract class Ingredient {
     private String nom;
     private String description;
     private TypeIngredient typeIngredient;
-    private float qty;
+    private double qty;
 
     public String getNom() {
         return nom;
@@ -30,9 +30,9 @@ public abstract class Ingredient {
         this.typeIngredient = typeIngredient;
     }
 
-    public float getQty() { return qty; }
+    public double  getQty() { return qty; }
 
-    public void setQty(float qty) {
+    public void setQty(double qty) {
         this.qty = qty;
     }
     public Ingredient setQtyAndReturn(float qty) {

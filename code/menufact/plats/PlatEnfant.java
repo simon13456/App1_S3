@@ -10,13 +10,13 @@ public class PlatEnfant extends PlatAuMenu{
             try {
                 throw new PlatExeption("Le prix ne peut etre negatif(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         if (proportion<=0)
             try {
                 throw new PlatExeption("La proprotion ne peut etre negative(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         return new PlatEnfant(code,description,prix,proportion);
     }
@@ -25,14 +25,11 @@ public class PlatEnfant extends PlatAuMenu{
         this.proportion = proportion;
     }
     @Override
-    public double getProportion() {
-        return proportion;
-    }
-
-    @Override
     public String toString() {
         return "PlatEnfant{" +
                 "proportion=" + proportion +
                 "} " + super.toString();
     }
+    @Override
+    public double getProportion() { return proportion; }
 }

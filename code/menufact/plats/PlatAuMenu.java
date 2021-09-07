@@ -11,7 +11,7 @@ public class PlatAuMenu {
             try {
                 throw new PlatExeption("Le prix ne peut pas etre negatif(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());;
                 return null;
             }
         return new PlatAuMenu(code,description,prix);
