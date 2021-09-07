@@ -24,7 +24,7 @@ public class Menu {
     }
     void showMenu(int pos)
     {
-        System.out.println(plat.get(pos));              //Est-ce que par code il parle d'index ou un autre truc que j'i pas vu? #DOM
+        System.out.println(plat.get(pos));
     }
     public void position(int i)
     {

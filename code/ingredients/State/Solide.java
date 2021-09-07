@@ -1,4 +1,4 @@
-package ingredients;
+package ingredients.State;
 
 public class Solide extends EtatM {
 

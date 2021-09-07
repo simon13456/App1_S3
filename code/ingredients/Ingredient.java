@@ -1,10 +1,13 @@
 package ingredients;
 
+import ingredients.State.EtatM;
+
 public abstract class Ingredient {
     private String nom;
     private String description;
     private TypeIngredient typeIngredient;
-    private double qty;
+    private EtatM etatM;
+    private float qty;
 
     public String getNom() {
         return nom;
@@ -37,6 +40,11 @@ public abstract class Ingredient {
     }
     public Ingredient setQtyAndReturn(float qty) {
         this.qty=qty;
+        return this;
+    }
+    public EtatM getEtatM(){return etatM;}
+    public Ingredient setEtatM(EtatM etatM){
+        this.etatM = etatM;
         return this;
     }
 }
