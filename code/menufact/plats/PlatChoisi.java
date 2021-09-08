@@ -24,6 +24,8 @@ public class PlatChoisi {
     }
     public Etat getEtat() { return this.EtatPlat;}
 
+    public void setEtatPlat(Etat etatPlat) { EtatPlat = etatPlat; }
+
     public int getQuantite() {
         return quantite;
     }
@@ -41,4 +43,6 @@ public class PlatChoisi {
     }
 
     public double getProportion() { return 1; }
+
+
 }

@@ -80,13 +80,12 @@ public abstract class Ingredient {
     public void setQty(double qty) {
         this.qty = qty;
     }
-    public Ingredient setQtyAndReturn(double qty) {
-
     /**
      * Méthode pour modifier l'attribut qty dans l'objet Ingrédient et le retourner
      * @param qty
      * @return Ingredient
      */
+    public Ingredient setQtyAndReturn(double qty) {
         this.qty=qty;
         return this;
     }
