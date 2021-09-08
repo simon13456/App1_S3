@@ -5,23 +5,17 @@ public class PlatEnfant extends PlatAuMenu{
 
     public PlatEnfant() {
     }
-    static public PlatEnfant CreatePlatEnfant(int code, String description, double prix, double proportion) {
-        if(prix<=0)
-            try {
-                throw new PlatExeption("Le prix ne peut etre negatif(ou de zero)");
-            } catch (PlatExeption e) {
-                System.out.println(e.getMessage());
-            }
-        if (proportion<=0)
+    static public PlatEnfant CreatePlatEnfant(int code, String description, double prix, double proportion, Recette recette) {
+        if (proportion<=0 || proportion >=0  )
             try {
                 throw new PlatExeption("La proprotion ne peut etre negative(ou de zero)");
             } catch (PlatExeption e) {
                 System.out.println(e.getMessage());
             }
-        return new PlatEnfant(code,description,prix,proportion);
+        return new PlatEnfant(code,description,prix,proportion,recette);
     }
-    private PlatEnfant(int code, String description, double prix, double proportion) {
-        super(code, description, prix);
+    private PlatEnfant(int code, String description, double prix, double proportion, Recette recette) {
+        super(code, description, prix,recette);
         this.proportion = proportion;
     }
     @Override

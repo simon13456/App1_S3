@@ -1,18 +1,16 @@
 package menufact;
 
 import ingredients.*;
-import ingredients.Factory.*;
-import ingredients.State.Liquide;
 import ingredients.State.Solide;
+import ingredients.State.Liquide;
+import ingredients.Factory.*;
+import menufact.Chef.Chef;
 import menufact.exceptions.FactureEtatException;
 import menufact.exceptions.IngredientException;
 import menufact.exceptions.MenuException;
 import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
-import menufact.plats.PlatAuMenu;
-import menufact.plats.PlatChoisi;
-import menufact.plats.PlatSante;
-import org.junit.jupiter.api.Test;
+import menufact.plats.*;
 import org.testng.Assert;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,19 +21,24 @@ public class TestMenuFact02 {
 
     public static void main(String[] args) {
         boolean trace = true;
+        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        Ingredient [] listIngredient = {Patate,Tomate,Chien};
+        Recette recette = new Recette(listIngredient);
 
         TestMenuFact02 t = new TestMenuFact02();
-        PlatAuMenu p1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10);
-        PlatAuMenu p2 = PlatAuMenu.CreatePlatAuMenu(1, "PlatAuMenu1", 20);
-        PlatAuMenu p3 = PlatAuMenu.CreatePlatAuMenu(2, "PlatAuMenu2", 30);
-        PlatAuMenu p4 = PlatAuMenu.CreatePlatAuMenu(3, "PlatAuMenu3", 40);
-        PlatAuMenu p5 = PlatAuMenu.CreatePlatAuMenu(4, "PlatAuMenu4", 50);
+        PlatAuMenu p1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10,recette);
+        PlatAuMenu p2 = PlatAuMenu.CreatePlatAuMenu(1, "PlatAuMenu1", 20,recette);
+        PlatAuMenu p3 = PlatAuMenu.CreatePlatAuMenu(2, "PlatAuMenu2", 30,recette);
+        PlatAuMenu p4 = PlatAuMenu.CreatePlatAuMenu(3, "PlatAuMenu3", 40,recette);
+        PlatAuMenu p5 = PlatAuMenu.CreatePlatAuMenu(4, "PlatAuMenu4", 50,recette);
 
-        PlatSante ps1 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, 11, 11, 11);
-        PlatSante ps2 = PlatSante.CreatePlatSante(11, "PlatSante1", 20, 11, 11, 11);
-        PlatSante ps3 = PlatSante.CreatePlatSante(12, "PlatSante2", 30, 11, 11, 11);
-        PlatSante ps4 = PlatSante.CreatePlatSante(13, "PlatSante3", 40, 11, 11, 11);
-        PlatSante ps5 = PlatSante.CreatePlatSante(14, "PlatSante4", 50, 11, 11, 11);
+        PlatSante ps1 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, 11, 11, 11, recette);
+        PlatSante ps2 = PlatSante.CreatePlatSante(11, "PlatSante1", 20, 11, 11, 11, recette);
+        PlatSante ps3 = PlatSante.CreatePlatSante(12, "PlatSante2", 30, 11, 11, 11, recette);
+        PlatSante ps4 = PlatSante.CreatePlatSante(13, "PlatSante3", 40, 11, 11, 11, recette);
+        PlatSante ps5 = PlatSante.CreatePlatSante(14, "PlatSante4", 50, 11, 11, 11, recette);
 
 
         Menu m1 = new Menu("menufact.Menu 1");
@@ -71,8 +74,6 @@ public class TestMenuFact02 {
         } catch (MenuException me) {
             System.out.println(me);
         }
-
-
         try {
             t.test9_PayerFacture(f1);
         } catch (FactureEtatException e) {
@@ -105,9 +106,140 @@ public class TestMenuFact02 {
         testCreerLaitier();
         testCreerLaitierEchec();
         testCreerEpice();
-        testCreerEpiceEchec();
+        testPlatAuMenu();
+        testPlatSante();
+        testPlatEnfant();
+    }
+    private static void testPlatAuMenu(){
+        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        Ingredient [] listIngredient = {Patate,Tomate,Chien};
+        Recette recette = new Recette(listIngredient);
+        PlatAuMenu plat1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10,recette);
+        PlatAuMenu plat2 = PlatAuMenu.CreatePlatAuMenu(1, "PlatAuMenu1", -5,recette);
+        Assert.assertNull(plat2);
+        Assert.assertEquals(1,plat1.getProportion());
+        Assert.assertEquals(plat1.getCode(),1);
+        plat1.setCode(2);
+        Assert.assertEquals(plat1.getCode(),2);
+        Assert.assertEquals(plat1.getDescription(),"PlatAuMenu1");
+        plat1.setDescription("None pizza with left of beef");
+        Assert.assertEquals(plat1.getDescription(),"None pizza with left of beef");
+        try{
+            plat1.setPrix(0);
+        } catch (PlatExeption platExeption) {
+        }
+        Assert.assertEquals(plat1.getPrix(),10);
+        try {
+            plat1.setPrix(321654);
+        } catch (PlatExeption e) {
+        }
+        Assert.assertEquals(plat1.getPrix(),321654);
+        Assert.assertEquals(plat1.getRecette(),recette);
+        System.out.println("==================");
+        System.out.println("Creation d'un plat");
+        System.out.println(plat1.toString());
+        System.out.println("==================");
+        System.out.println("Echec de la creation d'un plat");
+        System.out.println("==================");
+        System.out.println("La proportion est égale à 1");
+        System.out.println(plat1.getPrix());
+        System.out.println("==================");
+        System.out.println("Obtenir le code du plat");
+        System.out.println(plat1.getCode());
+        System.out.println("==================");
+        System.out.println("Setter le code a 2");
+        plat1.setCode(2);
+        System.out.println("Obtenir le code du plat");
+        System.out.println(plat1.getCode());
+        System.out.println("==================");
+        System.out.println("Obtenir la descritpion");
+        System.out.println(plat1.getDescription());
+        System.out.println("==================");
+        System.out.println("Setter la descritpion a None pizza with left of beef");
+        plat1.setDescription("None pizza with left of beef");
+        System.out.println("Obtenir la descritpion");
+        System.out.println(plat1.getDescription());
+        System.out.println("==================");
+        System.out.println("Obtenir le prix");
+        System.out.println(plat1.getPrix());
+        System.out.println("==================");
+        System.out.println("Setter le prix a 250");
+        try {
+            plat1.setPrix(250);
+        } catch (PlatExeption e) {
+            System.out.println("---------ERREUR---------");
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Obtenir le prix");
+        System.out.println(plat1.getPrix());
+        System.out.println("==================");
+        System.out.println("Setter le prix a -5");
+        try {
+            plat1.setPrix(250);
+        } catch (PlatExeption e) {
+            System.out.println("---------ERREUR---------");
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Obtenir le prix");
+        System.out.println(plat1.getPrix());
+        System.out.println("==================");
+        System.out.println("Obtenir la recette");
+        plat1.getRecette();
+    }
+    private static void testPlatSante(){
+        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        Ingredient [] listIngredient = {Patate,Tomate,Chien};
+        Recette recette = new Recette(listIngredient);
+        PlatSante ps1 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, 11, 11, 11, recette);
+        Assert.assertEquals(ps1.getChol(),11);
+        Assert.assertEquals(ps1.getGras(),11);
+        Assert.assertEquals(ps1.getKcal(),11);
+
+        System.out.println("==================");
+        System.out.println("Creer un plat sante");
+        System.out.println(ps1.toString());
+        System.out.println("==================");
+        System.out.println("Echouer a l'instanciation d'un plat sante");
+        PlatSante ps2 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, -11, -11, -11, recette);
+        System.out.println("==================");
+        System.out.println("Obtenir les Kcal");
+        System.out.println(ps1.getKcal());
+        System.out.println("==================");
+        System.out.println("Obtenir le Chol");
+        System.out.println(ps1.getChol());
+        System.out.println("==================");
+        System.out.println("Obtenir le Gras");
+        System.out.println(ps1.getGras());
+        System.out.println("==================");
+    }
+    private static void testPlatEnfant(){
+        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        Ingredient [] listIngredient = {Patate,Tomate,Chien};
+        Recette recette = new Recette(listIngredient);
+        System.out.println("==================");
+        System.out.println("Creation d'un plat pour enfant");
+        PlatEnfant pe1 = PlatEnfant.CreatePlatEnfant(10, "PlatSante0", 10,0.5,recette);
+        Assert.assertEquals(pe1.getProportion(),0.5);
+        System.out.println("==================");
+        System.out.println("Echec de l'instanciation d'un plat pour enfant");
+        PlatEnfant pe2 = PlatEnfant.CreatePlatEnfant(10, "PlatSante0", 10,500,recette);
+        System.out.println("==================");
+        System.out.println("Obtenir la proportion");
+        System.out.println(pe1.getProportion());
+        Assert.assertEquals(pe1.getProportion(),0.5);
+        System.out.println("==================");
     }
 
+    public static void testChef(){
+        Chef chef  = Chef.getInstance();
+
+    }
 
     private static void testCreerFruit() {
         System.out.println("Test : créer fruit  ");

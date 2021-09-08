@@ -7,7 +7,7 @@ public class PlatSante extends PlatAuMenu {
     private double chol;
     private double gras;
 
-    static public PlatSante CreatePlatSante(int code, String description, double prix, double kcal, double chol, double gras)  {
+    static public PlatSante CreatePlatSante(int code, String description, double prix, double kcal, double chol, double gras, Recette recette)  {
         if (prix<=0)
             try {
                 throw new PlatExeption("Le prix ne peux pas etre negatif(ou de zero)");
@@ -33,16 +33,16 @@ public class PlatSante extends PlatAuMenu {
                 e.printStackTrace();
             }
 
-        return new PlatSante(code,description,prix,kcal,chol,gras);
+        return new PlatSante(code,description,prix,kcal,chol,gras,recette);
     }
-    private PlatSante(int code, String description, double prix, double kcal, double chol, double gras) {
-        super(code, description, prix);
+    private PlatSante(int code, String description, double prix, double kcal, double chol, double gras, Recette recette) {
+        super(code, description, prix, recette);
         this.kcal = kcal;
         this.chol = chol;
         this.gras = gras;
     }
 
-    public PlatSante() {
+    private PlatSante() {
     }
 
     @Override
