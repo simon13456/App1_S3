@@ -477,6 +477,12 @@ public class TestMenuFact02 {
         Recette recette = new Recette(listIngredient);
         Recette LePoudingALarsenic = new Recette(listIngredient);
 
+        PlatAuMenu ArsenicPouding = PlatAuMenu.CreatePlatAuMenu(42, "L'ultime expérience culinaire", 7.99 ,LePoudingALarsenic);
+        Menu LeMenu = new Menu("Ultime menu");
+        PlatChoisi platChoisi = new PlatChoisi(LeMenu.platCourant(),1);
+        Andre.preparerPlat(platChoisi);
+        TheLastBill.genererFacture();
+
 
     }
 
