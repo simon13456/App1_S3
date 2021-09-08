@@ -23,7 +23,7 @@ public class Chef {
         } catch (EtatException e) {
             System.out.println(e.getMessage());
         }
-        if (IngredientInventaire.getInstance().verifierRecette(GestionDesProportion(pio_platAPreparer.getRecette(), pio_platAPreparer.getProportion()))
+        if (IngredientInventaire.getInstance().verifierRecette(GestionDesProportion(pio_platAPreparer.getRecette(), pio_platAPreparer.getProportion())))
             return terminerPlat(pio_platAPreparer);
         try {
             pio_platAPreparer.getEtat().Invalidate();

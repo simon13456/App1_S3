@@ -35,7 +35,7 @@ public abstract class Ingredient {
     public void setQty(double qty) {
         this.qty = qty;
     }
-    public Ingredient setQtyAndReturn(float qty) {
+    public Ingredient setQtyAndReturn(double qty) {
         this.qty=qty;
         return this;
     }

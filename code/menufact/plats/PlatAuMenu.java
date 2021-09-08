@@ -6,7 +6,7 @@ public class PlatAuMenu {
     private double prix;
     private Recette recette;
 
-    static public PlatAuMenu CreatePlatAuMenu(int code, String description, double prix) {
+    static public PlatAuMenu CreatePlatAuMenu(int code, String description, double prix, Recette recette) {
         if (prix<=0)
             try {
                 throw new PlatExeption("Le prix ne peut pas etre negatif(ou de zero)");
@@ -14,16 +14,18 @@ public class PlatAuMenu {
                 System.out.println(e.getMessage());;
                 return null;
             }
-        return new PlatAuMenu(code,description,prix);
+        return new PlatAuMenu(code,description,prix,recette);
     }
-    protected PlatAuMenu(int code, String description, double prix) {
+    protected PlatAuMenu(int code, String description, double prix, Recette recette) {
         this.code = code;
         this.description = description;
         this.prix = prix;
+        this.recette = recette;
     }
     public double getProportion(){
         return 1;
     }
+
     public PlatAuMenu() {
     }
 
