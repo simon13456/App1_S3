@@ -5,14 +5,18 @@ import ingredients.Factory.*;
 import ingredients.State.Liquide;
 import ingredients.State.Solide;
 import menufact.exceptions.FactureEtatException;
+import menufact.exceptions.IngredientException;
 import menufact.exceptions.MenuException;
 import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.PlatAuMenu;
 import menufact.plats.PlatChoisi;
 import menufact.plats.PlatSante;
+import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class TestMenuFact02 {
@@ -93,67 +97,165 @@ public class TestMenuFact02 {
 
         System.out.println(f1.genererFacture());
         testCreerFruit();
+        testCreerFruitEchec();
         testCreerLegume();
+        testCreerLegumeEchec();
         testCreerViande();
+        testCreerViandeEchec();
         testCreerLaitier();
+        testCreerLaitierEchec();
         testCreerEpice();
+        testCreerEpiceEchec();
     }
 
 
     private static void testCreerFruit() {
-        CreateurDingredient factory = new CreateurFruit();
-        Ingredient Pomme = factory.creer("Pomme", "fruit rouge cultivé dans les verger", 28.0F, new Solide());
-        Assert.assertEquals("Pomme", Pomme.getNom());
-        //Assert.assertTrue(Pomme.getNom() == "Pomme");
         System.out.println("Test : créer fruit  ");
         System.out.println("Résulat attendue : true");
         System.out.print("Résulat obtenue : ");
-        System.out.println("Pomme" == Pomme.getNom());
+        CreateurDingredient factory = new CreateurFruit();
+
+        try {
+            Ingredient Pomme = factory.creer("Pomme", "fruit rouge cultivé dans les verger", 28.0F, new Solide());
+            Assert.assertEquals("Pomme", Pomme.getNom());
+            System.out.println("Pomme" == Pomme.getNom());
+        } catch (IngredientException e) {
+            System.out.println("Nobody come here, but i hate blank space");
+        }
+        System.out.println();
+    }
+
+    private static void testCreerFruitEchec() {
+        System.out.println("Test : Fruit négatif  ");
+        System.out.println("Résulat attendue : Exception");
+        System.out.print("Résulat obtenue : ");
+        CreateurDingredient factory = new CreateurFruit();
+        try {
+            Ingredient Kiwi = factory.creer("Kiwi", "Les kiwis sont des fruits de plusieurs espèces de lianes du genre Actinidia", -1, new Solide());
+            fail();
+        } catch (IngredientException e) {
+            System.out.println("Exception");
+        }
+        System.out.println();
     }
 
 
     private static void testCreerLegume() {
-        CreateurDingredient factory = new CreateurLegume();
-        Ingredient Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-        Assert.assertEquals("Patate", Patate.getNom());
-        //Assert.assertTrue(Patate.getNom() == "Patate");
         System.out.println("Test : créer légume  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
-        System.out.println("Patate" == Patate.getNom());
+        CreateurDingredient factory = new CreateurLegume();
+
+        try {
+            Ingredient Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+            Assert.assertEquals("Patate", Patate.getNom());
+            System.out.println("Patate" == Patate.getNom());
+        } catch (IngredientException e) {
+            System.out.println("Nobody come here, but i hate blank space");
+        }
+        System.out.println();
+    }
+
+    private static void testCreerLegumeEchec() {
+        System.out.println("Test : Légume négatif  ");
+        System.out.println("Résulat attendue : Exception");
+        System.out.print("Résulat obtenue : ");
+        CreateurDingredient factory = new CreateurLegume();
+        try {
+            Ingredient Tomate = factory.creer("Tomate", "Plante potagère annuelle cultivée pour ses fruits.", -1, new Solide());
+            fail();
+        } catch (IngredientException e) {
+            System.out.println("Exception");
+        }
+        System.out.println();
     }
 
     private static void testCreerViande() {
-        CreateurDingredient factory = new CreateurViande();
-        Ingredient Steak = factory.creer("Steak", "Produit issu de la boucherie du boeuf", 15.0F, new Solide());
-        Assert.assertEquals("Steak", Steak.getNom());
-        //Assert.assertTrue(Steak.getNom() == "Steak");
         System.out.println("Test : créer viande  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
-        System.out.println("Steak" == Steak.getNom());
+        CreateurDingredient factory = new CreateurViande();
+        try {
+            Ingredient Steak = factory.creer("Steak", "Produit issu de la boucherie du boeuf", 15.0F, new Solide());
+            Assert.assertEquals("Steak", Steak.getNom());
+            System.out.println("Steak" == Steak.getNom());
+        } catch (IngredientException e) {
+            System.out.println("Nobody come here, but i hate blank space");
+        }
+        System.out.println();
+    }
+
+    private static void testCreerViandeEchec() {
+        System.out.println("Test : Viande négatif  ");
+        System.out.println("Résulat attendue : Exception");
+        System.out.print("Résulat obtenue : ");
+        CreateurDingredient factory = new CreateurViande();
+        try {
+            Ingredient Rosbeef = factory.creer("Rosbeef", "Morceau de bœuf à rôtir, généralement coupé dans l'aloyau.", -1, new Solide());
+            fail();
+        } catch (IngredientException e) {
+            System.out.println("Exception");
+        }
+        System.out.println();
     }
 
     private static void testCreerLaitier() {
-        CreateurDingredient factory = new CreateurLaitier();
-        Ingredient Creme = factory.creer("Creme", "Produit de l'écrémage du lait constitué de lait très enrichi en matière grasse", 15.0F, new Liquide());
-        Assert.assertEquals("Creme", Creme.getNom());
-        //Assert.assertTrue(Steak.getNom() == "Steak");
         System.out.println("Test : créer laitier  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
-        System.out.println("Creme" == Creme.getNom());
+        CreateurDingredient factory = new CreateurLaitier();
+        try {
+            Ingredient Creme = factory.creer("Creme", "Produit de l'écrémage du lait constitué de lait très enrichi en matière grasse", 15.0F, new Liquide());
+            Assert.assertEquals("Creme", Creme.getNom());
+            System.out.println("Creme" == Creme.getNom());
+        } catch (IngredientException e) {
+            System.out.println("Nobody come here, but i hate blank space");
+        }
+        System.out.println();
+    }
+
+    private static void testCreerLaitierEchec() {
+        System.out.println("Test : Laitier Négatif  ");
+        System.out.println("Résulat attendue : Exception");
+        System.out.print("Résulat obtenue : ");
+        CreateurDingredient factory = new CreateurLaitier();
+        try {
+            Ingredient Lait = factory.creer("Lait", "Lait de mammifères domestiques destiné à l'alimentation humaine.", -1, new Liquide());
+            fail();
+        } catch (IngredientException e) {
+            System.out.println("Exception");
+        }
+        System.out.println();
     }
 
     private static void testCreerEpice() {
-        CreateurDingredient factory = new CreateurEpice();
-        Ingredient Persil = factory.creer("Persil", "Petite ombellifère annuelle ou bisannuelle, à tige finement côtelée, à feuilles très découpées, que l'on utilise comme condiment et comme garniture.", 5.0F, new Solide());
-        Assert.assertEquals("Persil", Persil.getNom());
-        //Assert.assertTrue(Persil.getNom() == "Persil");
-        System.out.println("Test : créer persil  ");
+        System.out.println("Test : créer épice  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
-        System.out.println("Persil" == Persil.getNom());
+        CreateurDingredient factory = new CreateurEpice();
+        try {
+            Ingredient Persil = factory.creer("Persil", "Petite ombellifère annuelle ou bisannuelle, à tige finement côtelée, à feuilles très découpées, que l'on utilise comme condiment et comme garniture.", 5.0F, new Solide());
+            Assert.assertEquals("Persil", Persil.getNom());
+            System.out.println("Persil" == Persil.getNom());
+            fail();
+        } catch (IngredientException e) {
+            System.out.println("Nobody come here, but i hate blank space");
+        }
+        System.out.println();
+    }
+
+    private static void testCreerEpiceEchec() {
+        System.out.println("Test : Épice négative  ");
+        System.out.println("Résulat attendue : Exception");
+        System.out.print("Résulat obtenue : ");
+        CreateurDingredient factory = new CreateurEpice();
+        try {
+            Ingredient Sriracha = factory.creer("Sriracha", "Petite ombellifère annuelle ou bisannuelle, à tige finement côtelée, à feuilles très découpées, que l'on utilise comme condiment et comme garniture.", -1, new Liquide());
+            fail();
+        } catch (IngredientException e) {
+            System.out.println("Exception");
+        }
+        System.out.println();
     }
 
     private void test1_AffichePlatsAuMenu(boolean trace, PlatAuMenu p1, PlatAuMenu p2,

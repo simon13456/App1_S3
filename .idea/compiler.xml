@@ -2,7 +2,7 @@
 <project version="4">
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="MenuFact01" options="--add-modules java.base" />
+      <module name="MenuFact02" options="--add-modules java.base" />
     </option>
   </component>
 </project>

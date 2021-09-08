@@ -1,29 +1,41 @@
 package menufact.Chef;
 import ingredients.Ingredient;
 import ingredients.IngredientInventaire;
-import inventaire.Inventaire;
 import menufact.plats.PlatAuMenu;
 import menufact.plats.PlatChoisi;
 import menufact.plats.PlatEnfant;
 import menufact.plats.PlatEtat.EtatException;
 import menufact.plats.Recette;
 
+/**
+ * Section pour implémenter la classe chef qui sera un DP observer et singleton
+ */
 public class Chef {
     static Chef Instance;
+
+    /**
+     * Construire un objet Chef
+     */
     private Chef(){};
 
+    /**
+     * Méthode qui s'assure que le chef est un singleton
+     * void
+     * @return instance
+     */
     static public Chef getInstance(){
             if(Instance==null)
                 Instance = new Chef();
             return Instance;
     }
+
     public PlatChoisi preparerPlat(PlatChoisi pio_platAPreparer){
         try {
             pio_platAPreparer.getEtat().prochainEtat();
         } catch (EtatException e) {
             System.out.println(e.getMessage());
         }
-        if (IngredientInventaire.getInstance().verifierRecette(GestionDesProportion(pio_platAPreparer.getRecette(), pio_platAPreparer.getProportion()))
+        if (IngredientInventaire.getInstance().verifierRecette(GestionDesProportion(pio_platAPreparer.getRecette(), pio_platAPreparer.getProportion())))
             return terminerPlat(pio_platAPreparer);
         try {
             pio_platAPreparer.getEtat().Invalidate();
