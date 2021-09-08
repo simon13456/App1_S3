@@ -12,18 +12,26 @@ import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.*;
 import org.testng.Assert;
-
+/*
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
-
+*/
 
 public class TestMenuFact02 {
 
     public static void main(String[] args) {
         boolean trace = true;
-        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
-        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Patate = null;
+        Ingredient Tomate = null;
+        Ingredient Chien = null;
+        try {
+            Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+            Chien = factory.creer("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        } catch (IngredientException e) {
+            System.out.println("------------ERREUR------------");
+        }
         Ingredient [] listIngredient = {Patate,Tomate,Chien};
         Recette recette = new Recette(listIngredient);
 
@@ -106,36 +114,46 @@ public class TestMenuFact02 {
         testCreerLaitier();
         testCreerLaitierEchec();
         testCreerEpice();
+        testCreerEpiceEchec();
         testPlatAuMenu();
         testPlatSante();
         testPlatEnfant();
+
     }
     private static void testPlatAuMenu(){
-        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
-        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Patate = null;
+        Ingredient Tomate = null;
+        Ingredient Chien = null;
+        try {
+            Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+            Chien = factory.creer("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        } catch (IngredientException e) {
+            System.out.println("------------ERREUR------------");
+        }
         Ingredient [] listIngredient = {Patate,Tomate,Chien};
         Recette recette = new Recette(listIngredient);
         PlatAuMenu plat1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10,recette);
         PlatAuMenu plat2 = PlatAuMenu.CreatePlatAuMenu(1, "PlatAuMenu1", -5,recette);
         Assert.assertNull(plat2);
-        Assert.assertEquals(1,plat1.getProportion());
-        Assert.assertEquals(plat1.getCode(),1);
+        Assert.assertEquals(1.0,plat1.getProportion());
+        Assert.assertEquals(plat1.getCode(),0);
         plat1.setCode(2);
         Assert.assertEquals(plat1.getCode(),2);
-        Assert.assertEquals(plat1.getDescription(),"PlatAuMenu1");
+        Assert.assertEquals(plat1.getDescription(),"PlatAuMenu0");
         plat1.setDescription("None pizza with left of beef");
         Assert.assertEquals(plat1.getDescription(),"None pizza with left of beef");
         try{
             plat1.setPrix(0);
         } catch (PlatExeption platExeption) {
         }
-        Assert.assertEquals(plat1.getPrix(),10);
+        Assert.assertEquals(plat1.getPrix(),10.0);
         try {
             plat1.setPrix(321654);
         } catch (PlatExeption e) {
         }
-        Assert.assertEquals(plat1.getPrix(),321654);
+        Assert.assertEquals(plat1.getPrix(),321654.0);
         Assert.assertEquals(plat1.getRecette(),recette);
         System.out.println("==================");
         System.out.println("Creation d'un plat");
@@ -189,15 +207,23 @@ public class TestMenuFact02 {
         plat1.getRecette();
     }
     private static void testPlatSante(){
-        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
-        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Patate = null;
+        Ingredient Tomate = null;
+        Ingredient Chien = null;
+        try {
+            Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+            Chien = factory.creer("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        } catch (IngredientException e) {
+            System.out.println("------------ERREUR------------");
+        }
         Ingredient [] listIngredient = {Patate,Tomate,Chien};
         Recette recette = new Recette(listIngredient);
         PlatSante ps1 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, 11, 11, 11, recette);
-        Assert.assertEquals(ps1.getChol(),11);
-        Assert.assertEquals(ps1.getGras(),11);
-        Assert.assertEquals(ps1.getKcal(),11);
+        Assert.assertEquals(ps1.getChol(),11.0);
+        Assert.assertEquals(ps1.getGras(),11.0);
+        Assert.assertEquals(ps1.getKcal(),11.0);
 
         System.out.println("==================");
         System.out.println("Creer un plat sante");
@@ -217,9 +243,17 @@ public class TestMenuFact02 {
         System.out.println("==================");
     }
     private static void testPlatEnfant(){
-        Ingredient Patate = creerLegume("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-        Ingredient Tomate = creerLegume("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
-        Ingredient Chien = creerLegume("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Patate = null;
+        Ingredient Tomate = null;
+        Ingredient Chien = null;
+        try {
+            Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+            Chien = factory.creer("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        } catch (IngredientException e) {
+            System.out.println("------------ERREUR------------");
+        }
         Ingredient [] listIngredient = {Patate,Tomate,Chien};
         Recette recette = new Recette(listIngredient);
         System.out.println("==================");
@@ -237,6 +271,21 @@ public class TestMenuFact02 {
     }
 
     public static void testChef(){
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Patate = null;
+        Ingredient Tomate = null;
+        Ingredient Chien = null;
+        try {
+            Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
+            Chien = factory.creer("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+        } catch (IngredientException e) {
+            System.out.println("------------ERREUR------------");
+        }
+        Ingredient [] listIngredient = {Patate,Tomate,Chien};
+        Recette recette = new Recette(listIngredient);
+        PlatAuMenu plat1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10,recette);
+
         Chef chef  = Chef.getInstance();
 
     }
@@ -555,5 +604,6 @@ public class TestMenuFact02 {
         System.out.println("Apres avoir paye la facture");
         System.out.println(f1);
     }
+    public static void fail(){}
 }
 //#DOM Lorsqu'on fait des tests unitaires quels est la meilleure stratégie. Tout automatisé dans une grande classe ou tout séparé?

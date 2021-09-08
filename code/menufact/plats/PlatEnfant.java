@@ -11,6 +11,7 @@ public class PlatEnfant extends PlatAuMenu{
                 throw new PlatExeption("La proprotion ne peut etre negative(ou de zero)");
             } catch (PlatExeption e) {
                 System.out.println(e.getMessage());
+                return null;
             }
         return new PlatEnfant(code,description,prix,proportion,recette);
     }
