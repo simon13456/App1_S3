@@ -5,6 +5,10 @@ public class PlatEnfant extends PlatAuMenu{
 
     public PlatEnfant() {
     }
+    private PlatEnfant(int code, String description, double prix, double proportion, Recette recette) {
+        super(code, description, prix,recette);
+        this.proportion = proportion;
+    }
     static public PlatEnfant CreatePlatEnfant(int code, String description, double prix, double proportion, Recette recette) {
         if (proportion<=0 || proportion >1  )
             try {
@@ -15,10 +19,7 @@ public class PlatEnfant extends PlatAuMenu{
             }
         return new PlatEnfant(code,description,prix,proportion,recette);
     }
-    private PlatEnfant(int code, String description, double prix, double proportion, Recette recette) {
-        super(code, description, prix,recette);
-        this.proportion = proportion;
-    }
+
     @Override
     public String toString() {
         return "PlatEnfant{" +

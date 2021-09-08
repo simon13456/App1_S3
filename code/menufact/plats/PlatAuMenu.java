@@ -6,6 +6,14 @@ public class PlatAuMenu {
     private double prix;
     private Recette recette;
 
+    public PlatAuMenu() {
+    }
+    protected PlatAuMenu(int code, String description, double prix, Recette recette) {
+        this.code = code;
+        this.description = description;
+        this.prix = prix;
+        this.recette = recette;
+    }
     static public PlatAuMenu CreatePlatAuMenu(int code, String description, double prix, Recette recette) {
         if (prix<=0)
             try {
@@ -16,18 +24,12 @@ public class PlatAuMenu {
             }
         return new PlatAuMenu(code,description,prix,recette);
     }
-    protected PlatAuMenu(int code, String description, double prix, Recette recette) {
-        this.code = code;
-        this.description = description;
-        this.prix = prix;
-        this.recette = recette;
-    }
+
     public double getProportion(){
         return 1;
     }
 
-    public PlatAuMenu() {
-    }
+
 
     @Override
     public String toString() {

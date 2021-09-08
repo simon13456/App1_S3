@@ -7,6 +7,16 @@ public class PlatSante extends PlatAuMenu {
     private double chol;
     private double gras;
 
+    private PlatSante(int code, String description, double prix, double kcal, double chol, double gras, Recette recette) {
+        super(code, description, prix, recette);
+        this.kcal = kcal;
+        this.chol = chol;
+        this.gras = gras;
+    }
+
+    private PlatSante() {
+    }
+
     static public PlatSante CreatePlatSante(int code, String description, double prix, double kcal, double chol, double gras, Recette recette)  {
         if (prix<=0)
             try {
@@ -38,15 +48,6 @@ public class PlatSante extends PlatAuMenu {
             }
 
         return new PlatSante(code,description,prix,kcal,chol,gras,recette);
-    }
-    private PlatSante(int code, String description, double prix, double kcal, double chol, double gras, Recette recette) {
-        super(code, description, prix, recette);
-        this.kcal = kcal;
-        this.chol = chol;
-        this.gras = gras;
-    }
-
-    private PlatSante() {
     }
 
     @Override
