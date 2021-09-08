@@ -62,7 +62,12 @@ public class IngredientInventaire {
      * @return void
      */
     public void addIngredient(Ingredient ingredient) {
-        gardeManger.put(ingredient.getNom(), ingredient);
+        if (gardeManger.containsKey(ingredient.getNom())) {
+            Ingredient KeyIngredient = gardeManger.get(ingredient.getNom());
+            KeyIngredient.setQty(KeyIngredient.getQty() + ingredient.getQty());
+        }else {
+            gardeManger.put(ingredient.getNom(), ingredient);
+        }
     }
 
     /**

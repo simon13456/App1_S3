@@ -118,8 +118,9 @@ public class TestMenuFact02 {
         testPlatAuMenu();
         testPlatSante();
         testPlatEnfant();
+        testChef();
+        testPlatChoisie();
         testMesColocsEtLeurPudding();
-
     }
     private static void testPlatAuMenu(){
         CreateurDingredient factory = new CreateurFruit();
@@ -270,7 +271,45 @@ public class TestMenuFact02 {
         Assert.assertEquals(pe1.getProportion(),0.5);
         System.out.println("==================");
     }
+    public static void testPlatChoisie() {
+        CreateurDingredient factory = new CreateurFruit();
+        Ingredient Patate = null;
+        Ingredient Tomate = null;
+        Ingredient Chien = null;
+        try {
+            Patate = factory.creer("Patate", "Plante alimentaire rampante", 20000.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 20000.0F, new Solide());
+            Chien = factory.creer("Chien", "Plante alimentaire rampante", 20000.0F, new Solide());
+        } catch (IngredientException e) {
+            System.out.println("------------ERREUR------------");
+        }
+        Ingredient[] listIngredient = {Patate, Tomate, Chien};
+        Recette recette = new Recette(listIngredient);
+        for (int i = 0; i < 3; i++) {
+            IngredientInventaire.getInstance().addIngredient(Patate);
+            IngredientInventaire.getInstance().addIngredient(Tomate);
+            IngredientInventaire.getInstance().addIngredient(Chien);
+        }
 
+
+        PlatEnfant pe1 = PlatEnfant.CreatePlatEnfant(10, "PlatSante0", 10, 0.5, recette);
+        PlatSante ps1 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, 11, 11, 11, recette);
+        PlatAuMenu plat1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10, recette);
+        PlatChoisi pcpe1 = new PlatChoisi(pe1, 1);
+        PlatChoisi pcps1 = new PlatChoisi(ps1, 1);
+        PlatChoisi pcplat1 = new PlatChoisi(plat1, 1);
+
+        System.out.println("==================");
+        System.out.println("Obtenir l'etat");
+        System.out.println(pcpe1.getEtat().toString());
+        System.out.println("==================");
+        System.out.println("Obtenir la recette");
+        pcpe1.getRecette();
+        System.out.println("==================");
+        System.out.println("Obtenir la quantite");
+        System.out.println(pcpe1.getQuantite());
+
+    }
     public static void testChef(){
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
@@ -278,16 +317,52 @@ public class TestMenuFact02 {
         Ingredient Chien = null;
         try {
             Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-            Tomate = factory.creer("Tomate", "Plante potagère annuelle cultivée pour ses fruits", 200.0F, new Solide());
             Chien = factory.creer("Chien", "Mammifère domestique dont de nombreuses races sont élevées", 550.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante potagère annuelle cultivée pour ses fruits", 200.0F, new Solide());
         } catch (IngredientException e) {
             System.out.println("------------ERREUR------------");
         }
         Ingredient [] listIngredient = {Patate,Tomate,Chien};
         Recette recette = new Recette(listIngredient);
-        PlatAuMenu plat1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10,recette);
+        for(int i=0;i<3;i++) {
+            IngredientInventaire.getInstance().addIngredient(Patate);
+            IngredientInventaire.getInstance().addIngredient(Tomate);
+            IngredientInventaire.getInstance().addIngredient(Chien);
+        }
 
+
+        PlatEnfant pe1 = PlatEnfant.CreatePlatEnfant(10, "PlatSante0", 10,0.5,recette);
+        PlatSante  ps1 = PlatSante.CreatePlatSante(10, "PlatSante0", 10, 11, 11, 11, recette);
+        PlatAuMenu plat1 = PlatAuMenu.CreatePlatAuMenu(0, "PlatAuMenu0", 10,recette);
+        PlatChoisi pcpe1 = new PlatChoisi(pe1,1);
+        PlatChoisi pcps1 = new PlatChoisi(ps1,1);
+        PlatChoisi pcplat1 = new PlatChoisi(plat1,1);
+
+        System.out.println("==================");
+        System.out.println("Instanciation d'un Chef");
         Chef chef  = Chef.getInstance();
+        System.out.println(chef.toString());
+
+        System.out.println("==================");
+        System.out.println("Preparation d'un PlatAuMenu");
+        System.out.println(pcpe1.toString());
+        pcpe1 = chef.preparerPlat(pcpe1);
+        System.out.println(pcpe1.toString());
+        System.out.println("==================");
+        System.out.println("Preparation d'un PlatSante");
+        System.out.println(pcps1.toString());
+        pcps1 = chef.preparerPlat(pcps1);
+        System.out.println(pcps1.toString());
+        System.out.println("==================");
+        System.out.println("Preparation d'un PlatEnfant");
+        System.out.println(pcplat1.toString());
+        pcplat1 = chef.preparerPlat(pcplat1);
+        System.out.println(pcplat1.toString());
+        System.out.println("==================");
+
+        System.out.println(pcpe1.getEtat());
+        System.out.println(pcps1.getEtat());
+        System.out.println(pcplat1.getEtat());
 
     }
 
