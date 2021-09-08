@@ -12,25 +12,29 @@ public class PlatSante extends PlatAuMenu {
             try {
                 throw new PlatExeption("Le prix ne peux pas etre negatif(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return null;
             }
         if (kcal<=0)
             try {
                 throw  new PlatExeption("Les Kcal ne peuvent pas etre negatif(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return null;
             }
         if (chol<=0)
             try {
                 throw new PlatExeption("Le Chol ne peut pas etre negatif(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return null;
             }
         if (gras<=0)
             try {
                 throw  new PlatExeption("Le gras ne peut pas etre negatif(ou de zero)");
             } catch (PlatExeption e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return null;
             }
 
         return new PlatSante(code,description,prix,kcal,chol,gras,recette);
