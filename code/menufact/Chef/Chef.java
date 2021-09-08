@@ -16,7 +16,7 @@ public class Chef {
     /**
      * Construire un objet Chef
      */
-    private Chef(){};
+    public Chef(){};
 
     /**
      * Méthode qui s'assure que le chef est un singleton

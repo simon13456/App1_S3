@@ -118,6 +118,7 @@ public class TestMenuFact02 {
         testPlatAuMenu();
         testPlatSante();
         testPlatEnfant();
+        testMesColocsEtLeurPudding();
 
     }
     private static void testPlatAuMenu(){
@@ -277,8 +278,8 @@ public class TestMenuFact02 {
         Ingredient Chien = null;
         try {
             Patate = factory.creer("Patate", "Plante alimentaire rampante", 55.0F, new Solide());
-            Tomate = factory.creer("Tomate", "Plante alimentaire rampante", 200.0F, new Solide());
-            Chien = factory.creer("Patate", "Plante alimentaire rampante", 550.0F, new Solide());
+            Tomate = factory.creer("Tomate", "Plante potagère annuelle cultivée pour ses fruits", 200.0F, new Solide());
+            Chien = factory.creer("Chien", "Mammifère domestique dont de nombreuses races sont élevées", 550.0F, new Solide());
         } catch (IngredientException e) {
             System.out.println("------------ERREUR------------");
         }
@@ -438,6 +439,48 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
+    private static void testMesColocsEtLeurPudding() {
+        Client coloc = new Client(1995, "Amonbofis", "1990 1992 1996 2000");
+        Chef Andre = new Chef();
+        IngredientInventaire gardeManger = new IngredientInventaire();
+
+        Facture TheLastBill = new Facture("Le dernier repas");
+        CreateurDingredient factoryE = new CreateurEpice();
+        CreateurDingredient factoryLai = new CreateurLaitier();
+        CreateurDingredient factoryFr = new CreateurFruit();
+        CreateurDingredient factoryLeg = new CreateurLegume();
+        CreateurDingredient factoryV = new CreateurViande();
+        Ingredient Morphine = null;
+        Ingredient Arsenic = null;
+        Ingredient Petrole = null;
+        Ingredient Cigue = null;
+        Ingredient BaveDeSangsue = null;
+        Ingredient Scorpion = null;
+        try {
+            Morphine = factoryE.creer("Morphine", "À diluer", 1, new Liquide());
+            Arsenic = factoryE.creer("Arsenic", "Doit être soupoudrer dans un verre de narcotique", 1, new Solide());
+            Petrole = factoryLai.creer("Grand verre de pétrole", "Huile minérale naturelle combustible", 2, new Liquide());
+            Cigue = factoryFr.creer("Cigüe", "Plante très toxique", 1, new Solide());
+            BaveDeSangsue = factoryLeg.creer("Bave de sangsue", "slurp", 1, new Solide());
+            Scorpion = factoryV.creer("Scorpion", "Doit être trancher finement", 1, new Solide());
+        } catch (IngredientException e) {
+            e.printStackTrace();
+        }
+        gardeManger.addIngredient(Morphine);
+        gardeManger.addIngredient(Arsenic);
+        gardeManger.addIngredient(Petrole);
+        gardeManger.addIngredient(Cigue);
+        gardeManger.addIngredient(BaveDeSangsue);
+        gardeManger.addIngredient(Scorpion);
+
+        Ingredient [] listIngredient = {Morphine,Arsenic,Petrole,Cigue,BaveDeSangsue,Scorpion};
+        Recette recette = new Recette(listIngredient);
+        Recette LePoudingALarsenic = new Recette(listIngredient);
+
+
+    }
+
+
 
     private void test1_AffichePlatsAuMenu(boolean trace, PlatAuMenu p1, PlatAuMenu p2,
                                           PlatAuMenu p3, PlatAuMenu p4, PlatAuMenu p5) {
@@ -606,4 +649,3 @@ public class TestMenuFact02 {
     }
     public static void fail(){}
 }
-//#DOM Lorsqu'on fait des tests unitaires quels est la meilleure stratégie. Tout automatisé dans une grande classe ou tout séparé?

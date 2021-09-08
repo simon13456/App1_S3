@@ -6,7 +6,7 @@ public class PlatEnfant extends PlatAuMenu{
     public PlatEnfant() {
     }
     static public PlatEnfant CreatePlatEnfant(int code, String description, double prix, double proportion, Recette recette) {
-        if (proportion<=0 || proportion >=0  )
+        if (proportion<=0 || proportion >1  )
             try {
                 throw new PlatExeption("La proprotion ne peut etre negative(ou de zero)");
             } catch (PlatExeption e) {

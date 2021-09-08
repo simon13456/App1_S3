@@ -6,7 +6,7 @@ import menufact.plats.Recette;
 import java.util.Hashtable;
 
 /**
- * Cette section sert à l'implémentation de la classe IngrédientInventaire pour garder les quantités en inventaire ...
+ * Cette section sert à l'implémentation de la classe IngrédientInventaire pour garder les quantités en magasin ...
  */
 public class IngredientInventaire {
     private static IngredientInventaire instance;
@@ -19,7 +19,7 @@ public class IngredientInventaire {
      * param void
      * return void
      */
-    private IngredientInventaire() {
+    public IngredientInventaire() {
         gardeManger = new Hashtable<String, Ingredient>();
     }
 
@@ -57,7 +57,7 @@ public class IngredientInventaire {
     }
 
     /**
-     * Méthode pour ajouté un objet ingrédient dans l'inventaire
+     * Méthode pour ajouter un objet ingrédient dans l'inventaire
      * @param ingredient
      * @return void
      */
@@ -76,7 +76,7 @@ public class IngredientInventaire {
     }
 
     /**
-     * Méthode pour vérifier si tout les ingrédients sont disponnible pour accomplir la recette
+     * Méthode pour vérifier si tous les ingrédients sont disponnible pour accomplir la recette
      * @param recette
      * @return Boolean
      */
@@ -91,7 +91,7 @@ public class IngredientInventaire {
     }
 
     /**
-     * Méthode pour modifié la quantité d'ingrédient apres les avoir ajouté à la recette
+     * Méthode pour modifier la quantité d'ingrédient apres les avoir ajouté à la recette
      * @param recette
      * @return void
      */
