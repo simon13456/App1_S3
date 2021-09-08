@@ -517,9 +517,10 @@ public class TestMenuFact02 {
     private static void testMesColocsEtLeurPudding() {
         Client coloc = new Client(1995, "Amonbofis", "1990 1992 1996 2000");
         Chef Andre = new Chef();
-        IngredientInventaire gardeManger = new IngredientInventaire();
+        IngredientInventaire gardeManger = IngredientInventaire.getInstance();
 
         Facture TheLastBill = new Facture("Le dernier repas");
+        TheLastBill.associerClient(coloc);
         CreateurDingredient factoryE = new CreateurEpice();
         CreateurDingredient factoryLai = new CreateurLaitier();
         CreateurDingredient factoryFr = new CreateurFruit();
@@ -532,12 +533,12 @@ public class TestMenuFact02 {
         Ingredient BaveDeSangsue = null;
         Ingredient Scorpion = null;
         try {
-            Morphine = factoryE.creer("Morphine", "À diluer", 1, new Liquide());
-            Arsenic = factoryE.creer("Arsenic", "Doit être soupoudrer dans un verre de narcotique", 1, new Solide());
-            Petrole = factoryLai.creer("Grand verre de pétrole", "Huile minérale naturelle combustible", 2, new Liquide());
-            Cigue = factoryFr.creer("Cigüe", "Plante très toxique", 1, new Solide());
-            BaveDeSangsue = factoryLeg.creer("Bave de sangsue", "slurp", 1, new Solide());
-            Scorpion = factoryV.creer("Scorpion", "Doit être trancher finement", 1, new Solide());
+            Morphine = factoryE.creer("Morphine", "À diluer", 10, new Liquide());
+            Arsenic = factoryE.creer("Arsenic", "Doit être soupoudrer dans un verre de narcotique", 10, new Solide());
+            Petrole = factoryLai.creer("Grand verre de pétrole", "Huile minérale naturelle combustible", 20, new Liquide());
+            Cigue = factoryFr.creer("Cigüe", "Plante très toxique", 10, new Solide());
+            BaveDeSangsue = factoryLeg.creer("Bave de sangsue", "slurp", 10, new Solide());
+            Scorpion = factoryV.creer("Scorpion", "Doit être trancher finement", 10, new Solide());
         } catch (IngredientException e) {
             e.printStackTrace();
         }
@@ -547,18 +548,31 @@ public class TestMenuFact02 {
         gardeManger.addIngredient(Cigue);
         gardeManger.addIngredient(BaveDeSangsue);
         gardeManger.addIngredient(Scorpion);
-
+        try {
+            Morphine = factoryE.creer("Morphine", "À diluer", 1, new Liquide());
+            Arsenic = factoryE.creer("Arsenic", "Doit être soupoudrer dans un verre de narcotique", 1, new Solide());
+            Petrole = factoryLai.creer("Grand verre de pétrole", "Huile minérale naturelle combustible", 2, new Liquide());
+            Cigue = factoryFr.creer("Cigüe", "Plante très toxique", 1, new Solide());
+            BaveDeSangsue = factoryLeg.creer("Bave de sangsue", "slurp", 1, new Solide());
+            Scorpion = factoryV.creer("Scorpion", "Doit être trancher finement", 1, new Solide());
+        } catch (IngredientException e) {
+            e.printStackTrace();
+        }
         Ingredient [] listIngredient = {Morphine,Arsenic,Petrole,Cigue,BaveDeSangsue,Scorpion};
         Recette recette = new Recette(listIngredient);
         Recette LePoudingALarsenic = new Recette(listIngredient);
 
         PlatAuMenu ArsenicPouding = PlatAuMenu.CreatePlatAuMenu(42, "L'ultime expérience culinaire", 7.99 ,LePoudingALarsenic);
         Menu LeMenu = new Menu("Ultime menu");
+        LeMenu.ajoute(ArsenicPouding);
         PlatChoisi platChoisi = new PlatChoisi(LeMenu.platCourant(),1);
         Andre.preparerPlat(platChoisi);
-        TheLastBill.genererFacture();
-
-
+        try {
+            TheLastBill.ajoutePlat(platChoisi);
+        } catch (FactureException e) {
+            System.out.println("-------ERREUR-------");
+        }
+        System.out.println(TheLastBill.genererFacture());
     }
 
 

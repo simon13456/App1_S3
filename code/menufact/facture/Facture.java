@@ -123,10 +123,14 @@ public class Facture {
      */
     public void ajoutePlat(PlatChoisi p) throws FactureException
     {
-        if (etat == p.getEtat())
+        platchoisi.add(p);
+        /*
+        if (etat == new Ouvert())
             platchoisi.add(p);
         else
             throw new FactureException("On peut ajouter un plat seulement sur une facture OUVERTE.");
+            */
+
     }
 
     /**

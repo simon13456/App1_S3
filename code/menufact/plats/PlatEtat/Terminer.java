@@ -3,7 +3,7 @@ package menufact.plats.PlatEtat;
 public class Terminer implements Etat{
     @Override
     public Etat prochainEtat() {
-        return this;
+        return new Servi();
     }
 
     @Override
