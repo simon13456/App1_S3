@@ -18,6 +18,8 @@ public class CreateurFruit extends CreateurDingredient {
      * @return null
      * @throws IngredientException
      */
+    public CreateurFruit(){}
+
     public Ingredient creer(String nom, String description, float qty, EtatM etat) throws IngredientException {
         return new Fruit(nom, description, qty, etat);
 

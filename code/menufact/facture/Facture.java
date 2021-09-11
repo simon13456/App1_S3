@@ -1,9 +1,12 @@
 package menufact.facture;
 
+import menufact.Chef.Chef;
 import menufact.Client;
 import menufact.exceptions.FactureEtatException;
 import menufact.facture.exceptions.FactureException;
+import menufact.plats.PlatAuMenu;
 import menufact.plats.PlatChoisi;
+import menufact.plats.PlatEtat.Invalide;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +21,7 @@ public class Facture {
     private String description;
     private FactureEtat etat;
     private ArrayList<PlatChoisi> platchoisi = new ArrayList<PlatChoisi>();
+    private Chef chef;
     private int courant;
     private Client client;
 
@@ -36,6 +40,21 @@ public class Facture {
     }
 
     /**
+     * Méthode qui associe le chef a la facture
+     */
+    public void devenirChef(){
+        this.chef=Chef.getInstance();
+    }
+
+    /**
+     * Méthode qui avertie le Chef qu'unplat a été choisi
+     * @param platChoisi
+     */
+    public void notify (PlatChoisi platChoisi) {
+        chef.notify(platChoisi);
+    }
+
+    /**
      * Calcul du sous total de la facture
      * @return le sous total
      */
@@ -43,7 +62,8 @@ public class Facture {
     {
         double soustotal=0;
          for (PlatChoisi p : platchoisi)
-             soustotal += p.getQuantite() * p.getPlat().getPrix();
+             if(!(p.getEtat() instanceof Invalide))
+                soustotal += p.getQuantite() * p.getPlat().getPrix();
         return soustotal;
     }
 
@@ -114,6 +134,7 @@ public class Facture {
         etat = new Ouvert();
         courant = -1;
         this.description = description;
+        devenirChef();
     }
 
     /**
@@ -121,15 +142,15 @@ public class Facture {
      * @param p un plat choisi
      * @throws FactureException Seulement si la facture est OUVERTE
      */
-    public void ajoutePlat(PlatChoisi p) throws FactureException
+    public void ajoutePlatAuMenu(PlatAuMenu p,int qty) throws FactureException
     {
-        platchoisi.add(p);
-        /*
-        if (etat == new Ouvert())
-            platchoisi.add(p);
+        if (etat instanceof Ouvert) {
+            PlatChoisi PlatChoisi = new PlatChoisi(p,qty);
+            platchoisi.add(PlatChoisi);
+            this.notify(PlatChoisi);
+        }
         else
             throw new FactureException("On peut ajouter un plat seulement sur une facture OUVERTE.");
-            */
 
     }
 
@@ -146,8 +167,8 @@ public class Facture {
                 ", platchoisi=" + platchoisi +
                 ", courant=" + courant +
                 ", client=" + client +
-                ", TPS=" + TPS +
-                ", TVQ=" + TVQ +
+                ", TPS=" + String.format("%.2g%n", TPS) +
+                ", TVQ=" + String.format("%.2g%n", TVQ) +
                 '}';
     }
 
@@ -172,13 +193,14 @@ public class Facture {
         factureGenere += "Seq   Plat         Prix   Quantite\n";
         for (PlatChoisi plat : platchoisi)
         {
-            factureGenere +=  i + "     " + plat.getPlat().getDescription() +  "  " + plat.getPlat().getPrix() +  "      " + plat.getQuantite() + "\n";
-            i++;
+            if(!(plat.getEtat() instanceof Invalide))
+                factureGenere +=  i + "     " + plat.getPlat().getDescription() +  "  " + plat.getPlat().getPrix() +  "      " + plat.getQuantite() + "\n";
+                i++;
         }
 
-        factureGenere += "          TPS:               " + tps() + "\n";
-        factureGenere += "          TVQ:               " + tvq() + "\n";
-        factureGenere += "          Le total est de:   " + total() + "\n";
+        factureGenere += "          TPS:               " + String.format("%.2g%n", tps()) + "\n";
+        factureGenere += "          TVQ:               " + String.format("%.2g%n", tvq()) + "\n";
+        factureGenere += "          Le total est de:   " + String.format("%.3g%n", total()) + "\n";
 
         return factureGenere;
     }

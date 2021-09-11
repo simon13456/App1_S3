@@ -18,6 +18,7 @@ public class CreateurLegume extends CreateurDingredient {
      * @return null
      * @throws IngredientException
      */
+    public CreateurLegume(){}
     public Ingredient creer(String nom, String description, float qty, EtatM etat) throws IngredientException {
         return new Legume(nom, description, qty, etat);
 

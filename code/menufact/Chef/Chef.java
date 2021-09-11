@@ -19,16 +19,27 @@ public class Chef {
     public Chef(){};
 
     /**
+     * Méthode qui avertie le Chef qu'un plat à été choisie
+     * @param platChoisi
+     */
+    public void notify(PlatChoisi platChoisi){
+        preparerPlat(platChoisi);
+    }
+    /**
      * Méthode qui s'assure que le chef est un singleton
      * void
      * @return instance
      */
     static public Chef getInstance(){
-            if(Instance==null)
-                Instance = new Chef();
-            return Instance;
+        if(Instance==null)
+            Instance = new Chef();
+        return Instance;
     }
-
+    /**
+     * Méthode qui prépare et vérifie si l'inventaire à tout les ingrédients
+     * @param pio_platAPreparer
+     * @return PlatChoisi
+     */
     public PlatChoisi preparerPlat(PlatChoisi pio_platAPreparer){
         try {
             pio_platAPreparer.setEtatPlat(pio_platAPreparer.getEtat().prochainEtat());
@@ -44,6 +55,11 @@ public class Chef {
         }
         return pio_platAPreparer;
     }
+    /**
+     * Méthode qui termine le plat et retire les ingreddient de l'inventaire
+     * @param pio_platATerminer
+     * @return
+     */
     private PlatChoisi terminerPlat(PlatChoisi pio_platATerminer){
         IngredientInventaire.getInstance().consommerIngredient(GestionDesProportion(pio_platATerminer.getRecette(), pio_platATerminer.getProportion()));
         try {
@@ -53,6 +69,11 @@ public class Chef {
         }
         return ServirPlat(pio_platATerminer);
     }
+    /**
+     * Méthode qui sert le plat
+     * @param pio_platAServir
+     * @return
+     */
     private PlatChoisi ServirPlat(PlatChoisi pio_platAServir){
         try {
             pio_platAServir.setEtatPlat(pio_platAServir.getEtat().prochainEtat());
@@ -61,6 +82,12 @@ public class Chef {
         }
         return pio_platAServir;
     }
+    /**
+     * Méthode pour gérer la portion d'ingredient à enlever de l'inventaire
+     * @param recette
+     * @param proportion
+     * @return
+     */
     private Recette GestionDesProportion (Recette recette, Double proportion){
         for (Ingredient ingredient: recette.getIngredientRequis()) {
             ingredient.setQty(ingredient.getQty() * proportion);

@@ -19,6 +19,7 @@ public class CreateurEpice extends CreateurDingredient
      * @return null
      * @throws IngredientException
      */
+    public CreateurEpice(){}
     public Ingredient creer(String nom, String description, float qty, EtatM etat) throws IngredientException {
         return new Epice(nom,description,qty,etat);
 

@@ -19,6 +19,7 @@ public class CreateurViande extends CreateurDingredient
      * @return null
      * @throws IngredientException
      */
+    public CreateurViande(){}
     public Ingredient creer(String nom, String description, float qty, EtatM etat) throws IngredientException {
         return new Viande(nom,description,qty,etat);
 

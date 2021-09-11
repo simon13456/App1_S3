@@ -19,6 +19,7 @@ public class CreateurLaitier extends CreateurDingredient
      * @return null
      * @throws IngredientException
      */
+    public CreateurLaitier(){}
     public Ingredient creer(String nom, String description, float qty, EtatM etat) throws IngredientException {
         return new Laitier(nom,description,qty,etat);
 

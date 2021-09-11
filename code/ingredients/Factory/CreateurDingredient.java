@@ -17,6 +17,8 @@ public abstract class CreateurDingredient {
      * @return null
      * @throws IngredientException
      */
+    public CreateurDingredient(){}
+
     public Ingredient creer(String nom, String description, float qty, EtatM etat) throws IngredientException {
         return null;
     }

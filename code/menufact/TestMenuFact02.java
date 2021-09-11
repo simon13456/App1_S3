@@ -12,14 +12,13 @@ import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.*;
 import org.testng.Assert;
-/*
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
-*/
+import org.junit.Test;
+import org.junit.Before;
+
 
 public class TestMenuFact02 {
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         boolean trace = true;
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
@@ -55,6 +54,7 @@ public class TestMenuFact02 {
         Facture f1 = new Facture("Ma facture");
 
         Client c1 = new Client(1, "Mr Client", "1234567890");
+
         t.test1_AffichePlatsAuMenu(trace, p1, p2, p3, p4, p5);
         t.test2_AffichePlatsSante(trace, ps1, ps2, ps3, ps4, ps5);
         t.test4_AjoutPlatsAuMenu(trace, m1, p1, p2, ps1, ps2, m2, p3, p4, ps3, ps4);
@@ -64,6 +64,7 @@ public class TestMenuFact02 {
         } catch (MenuException e) {
             System.out.println(e.getMessage());
         }
+
         try {
             t.test6_DeplacementMenuReculer(m1);
         } catch (MenuException e) {
@@ -95,6 +96,7 @@ public class TestMenuFact02 {
         } catch (MenuException me) {
             System.out.println(me);
         }
+
         try {
             f1.ouvrir();
         } catch (FactureException | FactureEtatException fe) {
@@ -121,8 +123,10 @@ public class TestMenuFact02 {
         testChef();
         testPlatChoisie();
         testMesColocsEtLeurPudding();
+
     }
-    private static void testPlatAuMenu(){
+    @Test
+    public void testPlatAuMenu(){
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
         Ingredient Tomate = null;
@@ -208,7 +212,8 @@ public class TestMenuFact02 {
         System.out.println("Obtenir la recette");
         plat1.getRecette();
     }
-    private static void testPlatSante(){
+    @Test
+    public void testPlatSante(){
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
         Ingredient Tomate = null;
@@ -244,7 +249,8 @@ public class TestMenuFact02 {
         System.out.println(ps1.getGras());
         System.out.println("==================");
     }
-    private static void testPlatEnfant(){
+    @Test
+    public void testPlatEnfant(){
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
         Ingredient Tomate = null;
@@ -271,7 +277,8 @@ public class TestMenuFact02 {
         Assert.assertEquals(pe1.getProportion(),0.5);
         System.out.println("==================");
     }
-    public static void testPlatChoisie() {
+    @Test
+    public void testPlatChoisie() {
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
         Ingredient Tomate = null;
@@ -310,7 +317,8 @@ public class TestMenuFact02 {
         System.out.println(pcpe1.getQuantite());
 
     }
-    public static void testChef(){
+    @Test
+    public void testChef(){
         CreateurDingredient factory = new CreateurFruit();
         Ingredient Patate = null;
         Ingredient Tomate = null;
@@ -365,8 +373,8 @@ public class TestMenuFact02 {
         System.out.println(pcplat1.getEtat());
 
     }
-
-    private static void testCreerFruit() {
+    @Test
+    public void testCreerFruit() {
         System.out.println("Test : créer fruit  ");
         System.out.println("Résulat attendue : true");
         System.out.print("Résulat obtenue : ");
@@ -381,8 +389,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerFruitEchec() {
+    @Test
+    public void testCreerFruitEchec() {
         System.out.println("Test : Fruit négatif  ");
         System.out.println("Résulat attendue : Exception");
         System.out.print("Résulat obtenue : ");
@@ -395,9 +403,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-
-    private static void testCreerLegume() {
+    @Test
+    public void testCreerLegume() {
         System.out.println("Test : créer légume  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
@@ -412,8 +419,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerLegumeEchec() {
+    @Test
+    public void testCreerLegumeEchec() {
         System.out.println("Test : Légume négatif  ");
         System.out.println("Résulat attendue : Exception");
         System.out.print("Résulat obtenue : ");
@@ -426,8 +433,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerViande() {
+    @Test
+    public void testCreerViande() {
         System.out.println("Test : créer viande  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
@@ -441,8 +448,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerViandeEchec() {
+    @Test
+    public void testCreerViandeEchec() {
         System.out.println("Test : Viande négatif  ");
         System.out.println("Résulat attendue : Exception");
         System.out.print("Résulat obtenue : ");
@@ -455,8 +462,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerLaitier() {
+    @Test
+    public void testCreerLaitier() {
         System.out.println("Test : créer laitier  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
@@ -470,8 +477,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerLaitierEchec() {
+    @Test
+    public void testCreerLaitierEchec() {
         System.out.println("Test : Laitier Négatif  ");
         System.out.println("Résulat attendue : Exception");
         System.out.print("Résulat obtenue : ");
@@ -484,8 +491,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerEpice() {
+    @Test
+    public void testCreerEpice() {
         System.out.println("Test : créer épice  ");
         System.out.println("Résulat attendue : True");
         System.out.print("Résulat obtenue : ");
@@ -500,8 +507,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-
-    private static void testCreerEpiceEchec() {
+    @Test
+    public void testCreerEpiceEchec() {
         System.out.println("Test : Épice négative  ");
         System.out.println("Résulat attendue : Exception");
         System.out.print("Résulat obtenue : ");
@@ -514,7 +521,8 @@ public class TestMenuFact02 {
         }
         System.out.println();
     }
-    private static void testMesColocsEtLeurPudding() {
+    @Test
+    public void testMesColocsEtLeurPudding() {
         Client coloc = new Client(1995, "Amonbofis", "1990 1992 1996 2000");
         Chef Andre = new Chef();
         IngredientInventaire gardeManger = IngredientInventaire.getInstance();
@@ -561,14 +569,11 @@ public class TestMenuFact02 {
         Ingredient [] listIngredient = {Morphine,Arsenic,Petrole,Cigue,BaveDeSangsue,Scorpion};
         Recette recette = new Recette(listIngredient);
         Recette LePoudingALarsenic = new Recette(listIngredient);
-
         PlatAuMenu ArsenicPouding = PlatAuMenu.CreatePlatAuMenu(42, "L'ultime expérience culinaire", 7.99 ,LePoudingALarsenic);
         Menu LeMenu = new Menu("Ultime menu");
         LeMenu.ajoute(ArsenicPouding);
-        PlatChoisi platChoisi = new PlatChoisi(LeMenu.platCourant(),1);
-        Andre.preparerPlat(platChoisi);
         try {
-            TheLastBill.ajoutePlat(platChoisi);
+            TheLastBill.ajoutePlatAuMenu(LeMenu.platCourant(),1);
         } catch (FactureException e) {
             System.out.println("-------ERREUR-------");
         }
@@ -668,7 +673,6 @@ public class TestMenuFact02 {
         }
     }
 
-
     private void test6_DeplacementMenuReculer(Menu m1) throws MenuException {
         System.out.println("===test6_DeplacementMenuReculer");
 
@@ -697,16 +701,13 @@ public class TestMenuFact02 {
 
     private void test7_CreerFacture(Facture f1, Menu m1) throws FactureException {
         System.out.println("===test7_CreerFacture");
-
-        PlatChoisi platChoisi = new PlatChoisi(m1.platCourant(), 5);
         try {
-            f1.ajoutePlat(platChoisi);
+            f1.ajoutePlatAuMenu(m1.platCourant(), 5);
         } catch (FactureException fe) {
             throw fe;
         }
         System.out.println(f1);
     }
-
 
     private void test8_AjouterClientFacture(Facture f1, Client c1) {
         System.out.println("===test8_AjouterClientFacture");
@@ -723,10 +724,8 @@ public class TestMenuFact02 {
         } catch (MenuException me) {
             throw me;
         }
-
-        PlatChoisi platChoisi = new PlatChoisi(m1.platCourant(), 5);
         try {
-            f1.ajoutePlat(platChoisi);
+            f1.ajoutePlatAuMenu(m1.platCourant(), 5);
         } catch (FactureException fe) {
             throw fe;
         }
@@ -742,5 +741,8 @@ public class TestMenuFact02 {
         System.out.println("Apres avoir paye la facture");
         System.out.println(f1);
     }
+
     public static void fail(){}
+
+
 }
